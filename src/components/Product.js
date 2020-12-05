@@ -6,8 +6,19 @@ import { useStateValue } from './StateProvider';
 function Product({ id, title, image, price, rating }) {
   const [{basket}, dispatch] = useStateValue();
 
-  const addToBaket = () => {
-    // add ti basket...
+  const addToBasket = () => {
+    // add item to basket...
+    // to manipulate the data layer
+    dispatch({
+      type: 'ADD_TO_BASKET',
+      item: {
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+        rating: rating
+      }
+    }) 
   };
   return (
     <div className="product">
@@ -21,14 +32,14 @@ function Product({ id, title, image, price, rating }) {
           {
             Array(rating)
             .fill()
-            .map((_) => (
+            .map((_, i) => (
               <p>⭐</p>
             ))
           }
         </div>
       </div>
       <img src={image} />
-      <button onClick={addToBaket}>Add to basket</button>
+      <button onClick={addToBasket}>Add to basket</button>
     </div>
   )
 }
